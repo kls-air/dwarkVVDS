@@ -2,3 +2,5 @@
 # profile-update-interval: 1
 
 vless://717fa843-96c0-43ed-8f75-ee4bd3e06514@pro-fi.emrata.top:753?type=tcp&security=reality&encryption=none&flow=xtls-rprx-vision&sni=www.amd.com&fp=firefox&pbk=F2VfBr2UmjDTErB_oruvW5aIvzH_xGfM2AW5_w-DF0I&sid=#🇫🇮Dwark | Финляндия 🔥
+
+vless://91427003-38cb-473e-95f2-a4b500c91f7b@94.183.219.239:443?type=grpc&security=reality&encryption=none&flow=&sni=google.com&fp=chrome&pbk=uemqA7VkHB7Xw_gc88AfbBijEJgiWaVdCiIyMae8CSI&sid=#Dwark | Великобритания
