@@ -1,5 +1,6 @@
 # profile-title: Dwark VPN Test Auto
-# profile-update-interval: 1
+# profile-update-interval: 24
+# profile-web-page-url: https://t.me/your_channel
 
 {
   "log": {
