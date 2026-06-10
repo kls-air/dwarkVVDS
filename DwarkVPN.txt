@@ -1,6 +1,4 @@
 # profile-title: Dwark VPN Test Auto
-# profile-update-interval: 24
-# profile-web-page-url: https://t.me/your_channel
 
 {
   "log": {
@@ -205,8 +203,7 @@
           "show": false
         },
         "grpcSettings": {
-          "serviceName": "",
-          "multiMode": false
+          "serviceName": ""
         }
       },
       "mux": {
@@ -243,8 +240,7 @@
           "show": false
         },
         "grpcSettings": {
-          "serviceName": "",
-          "multiMode": false
+          "serviceName": ""
         }
       },
       "mux": {
@@ -281,8 +277,7 @@
           "show": false
         },
         "grpcSettings": {
-          "serviceName": "",
-          "multiMode": false
+          "serviceName": ""
         }
       },
       "mux": {
@@ -358,8 +353,7 @@
           "show": false
         },
         "grpcSettings": {
-          "serviceName": "",
-          "multiMode": false
+          "serviceName": ""
         }
       },
       "mux": {
@@ -396,8 +390,7 @@
           "show": false
         },
         "grpcSettings": {
-          "serviceName": "",
-          "multiMode": false
+          "serviceName": ""
         }
       },
       "mux": {
@@ -512,8 +505,7 @@
           "show": false
         },
         "grpcSettings": {
-          "serviceName": "/api",
-          "multiMode": false
+          "serviceName": "/api"
         }
       },
       "mux": {
@@ -930,7 +922,7 @@
         ]
       },
       "streamSettings": {
-        "network": "xhttp",
+        "network": "grpc",
         "security": "reality",
         "realitySettings": {
           "serverName": "static.tinkoff.ru",
@@ -939,7 +931,9 @@
           "shortId": "fd5c85abc0abfa78",
           "show": false
         },
-        "xhttpSettings": {}
+        "grpcSettings": {
+          "serviceName": ""
+        }
       },
       "mux": {
         "enabled": false,
@@ -1170,8 +1164,7 @@
           "show": false
         },
         "grpcSettings": {
-          "serviceName": "",
-          "multiMode": false
+          "serviceName": ""
         }
       },
       "mux": {
@@ -1198,7 +1191,7 @@
         ]
       },
       "streamSettings": {
-        "network": "xhttp",
+        "network": "grpc",
         "security": "reality",
         "realitySettings": {
           "serverName": "www.yahoo.com",
@@ -1207,7 +1200,9 @@
           "shortId": "6f3192",
           "show": false
         },
-        "xhttpSettings": {}
+        "grpcSettings": {
+          "serviceName": ""
+        }
       },
       "mux": {
         "enabled": false,
@@ -1243,8 +1238,7 @@
           "show": false
         },
         "grpcSettings": {
-          "serviceName": "",
-          "multiMode": false
+          "serviceName": ""
         }
       },
       "mux": {
@@ -1451,9 +1445,5 @@
     "probeUrl": "http://cp.cloudflare.com",
     "probeInterval": "20m",
     "enableConcurrency": true
-  },
-  "remarks": "Dwark | Авто подключение | VPN + Обход 🔥",
-  "meta": {
-    "serverDescription": "Auto Ping Select (20m)"
   }
 }
