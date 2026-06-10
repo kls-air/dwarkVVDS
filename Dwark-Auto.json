@@ -1,27 +1,20 @@
-# profile-title: Dwark VPN Test Auto
-# profile-update-interval: 6
-
 {
+  "remarks": "Dwark | Авто подключение | VPN + Обход 🔥",
   "log": {
     "loglevel": "warning"
   },
   "dns": {
     "servers": [
-      "https://1.1.1.1/dns-query",
-      {
-        "address": "1.1.1.1",
-        "domains": [
-          "geosite:cn"
-        ]
-      },
-      "1.1.1.1"
-    ]
+      "1.1.1.1",
+      "8.8.8.8"
+    ],
+    "queryStrategy": "UseIP"
   },
   "inbounds": [
     {
       "tag": "socks-in",
-      "port": 10808,
       "listen": "127.0.0.1",
+      "port": 10808,
       "protocol": "socks",
       "settings": {
         "udp": true
@@ -32,34 +25,29 @@
           "http",
           "tls",
           "quic"
-        ]
+        ],
+        "routeOnly": false
       }
     },
     {
       "tag": "http-in",
-      "port": 10809,
       "listen": "127.0.0.1",
+      "port": 10809,
       "protocol": "http",
-      "settings": {}
+      "sniffing": {
+        "enabled": true,
+        "destOverride": [
+          "http",
+          "tls",
+          "quic"
+        ],
+        "routeOnly": false
+      }
     }
   ],
   "outbounds": [
     {
-      "tag": "direct",
-      "protocol": "freedom",
-      "settings": {}
-    },
-    {
-      "tag": "block",
-      "protocol": "blackhole",
-      "settings": {
-        "response": {
-          "type": "http"
-        }
-      }
-    },
-    {
-      "tag": "proxy-0",
+      "tag": "px-01",
       "protocol": "vless",
       "settings": {
         "vnext": [
@@ -70,6 +58,7 @@
               {
                 "id": "e26c67f0-6775-4e91-8238-fd67e584cb0b",
                 "encryption": "none",
+                "level": 0,
                 "flow": "xtls-rprx-vision"
               }
             ]
@@ -84,21 +73,12 @@
           "fingerprint": "randomized",
           "publicKey": "ivgTfLR13A6xBsicIA28OPoav2tXlsstTTmGuETfnSk",
           "shortId": "6d6f13013d3e1d0c",
-          "show": false
-        },
-        "tcpSettings": {
-          "header": {
-            "type": "none"
-          }
+          "spiderX": ""
         }
-      },
-      "mux": {
-        "enabled": false,
-        "concurrency": -1
       }
     },
     {
-      "tag": "proxy-1",
+      "tag": "px-02",
       "protocol": "vless",
       "settings": {
         "vnext": [
@@ -109,6 +89,7 @@
               {
                 "id": "e26c67f0-6775-4e91-8238-fd67e584cb0b",
                 "encryption": "none",
+                "level": 0,
                 "flow": "xtls-rprx-vision"
               }
             ]
@@ -123,21 +104,12 @@
           "fingerprint": "randomized",
           "publicKey": "ivgTfLR13A6xBsicIA28OPoav2tXlsstTTmGuETfnSk",
           "shortId": "6d6f13013d3e1d0c",
-          "show": false
-        },
-        "tcpSettings": {
-          "header": {
-            "type": "none"
-          }
+          "spiderX": ""
         }
-      },
-      "mux": {
-        "enabled": false,
-        "concurrency": -1
       }
     },
     {
-      "tag": "proxy-2",
+      "tag": "px-03",
       "protocol": "vless",
       "settings": {
         "vnext": [
@@ -148,6 +120,7 @@
               {
                 "id": "717fa843-96c0-43ed-8f75-ee4bd3e06514",
                 "encryption": "none",
+                "level": 0,
                 "flow": "xtls-rprx-vision"
               }
             ]
@@ -162,21 +135,12 @@
           "fingerprint": "firefox",
           "publicKey": "F2VfBr2UmjDTErB_oruvW5aIvzH_xGfM2AW5_w-DF0I",
           "shortId": "",
-          "show": false
-        },
-        "tcpSettings": {
-          "header": {
-            "type": "none"
-          }
+          "spiderX": ""
         }
-      },
-      "mux": {
-        "enabled": false,
-        "concurrency": -1
       }
     },
     {
-      "tag": "proxy-3",
+      "tag": "px-04",
       "protocol": "vless",
       "settings": {
         "vnext": [
@@ -187,7 +151,7 @@
               {
                 "id": "baf86b5c-7286-4bd5-ac35-f0d4275fb5ae",
                 "encryption": "none",
-                "flow": ""
+                "level": 0
               }
             ]
           }
@@ -201,20 +165,16 @@
           "fingerprint": "chrome",
           "publicKey": "gOummriWvIYMJpd5oifBLqxsf_jcWHVsxVI7wnM0rRo",
           "shortId": "a897aa6a992b7acc",
-          "show": false
+          "spiderX": ""
         },
         "grpcSettings": {
           "serviceName": "",
           "multiMode": false
         }
-      },
-      "mux": {
-        "enabled": false,
-        "concurrency": -1
       }
     },
     {
-      "tag": "proxy-4",
+      "tag": "px-05",
       "protocol": "vless",
       "settings": {
         "vnext": [
@@ -225,7 +185,7 @@
               {
                 "id": "baf86b5c-7286-4bd5-ac35-f0d4275fb5ae",
                 "encryption": "none",
-                "flow": ""
+                "level": 0
               }
             ]
           }
@@ -239,20 +199,16 @@
           "fingerprint": "chrome",
           "publicKey": "XWP3eu958tmcTzF5TvelcQMxfKd632VaNlG6nrqHwRU",
           "shortId": "4cd45277ddedbf1f",
-          "show": false
+          "spiderX": ""
         },
         "grpcSettings": {
           "serviceName": "",
           "multiMode": false
         }
-      },
-      "mux": {
-        "enabled": false,
-        "concurrency": -1
       }
     },
     {
-      "tag": "proxy-5",
+      "tag": "px-06",
       "protocol": "vless",
       "settings": {
         "vnext": [
@@ -263,7 +219,7 @@
               {
                 "id": "baf86b5c-7286-4bd5-ac35-f0d4275fb5ae",
                 "encryption": "none",
-                "flow": ""
+                "level": 0
               }
             ]
           }
@@ -277,20 +233,16 @@
           "fingerprint": "chrome",
           "publicKey": "XWP3eu958tmcTzF5TvelcQMxfKd632VaNlG6nrqHwRU",
           "shortId": "4cd45277ddedbf1f",
-          "show": false
+          "spiderX": ""
         },
         "grpcSettings": {
           "serviceName": "",
           "multiMode": false
         }
-      },
-      "mux": {
-        "enabled": false,
-        "concurrency": -1
       }
     },
     {
-      "tag": "proxy-6",
+      "tag": "px-07",
       "protocol": "vless",
       "settings": {
         "vnext": [
@@ -301,6 +253,7 @@
               {
                 "id": "a6bd2cf2-cb83-4ac3-82a3-350cc9d0d469",
                 "encryption": "none",
+                "level": 0,
                 "flow": "xtls-rprx-vision"
               }
             ]
@@ -315,21 +268,12 @@
           "fingerprint": "chrome",
           "publicKey": "LGcG8Sqv5vPDypbaEgHV0ZGqQOBkgDepPWXyDohbVXQ",
           "shortId": "",
-          "show": false
-        },
-        "tcpSettings": {
-          "header": {
-            "type": "none"
-          }
+          "spiderX": ""
         }
-      },
-      "mux": {
-        "enabled": false,
-        "concurrency": -1
       }
     },
     {
-      "tag": "proxy-7",
+      "tag": "px-08",
       "protocol": "vless",
       "settings": {
         "vnext": [
@@ -340,7 +284,7 @@
               {
                 "id": "e26c67f0-6775-4e91-8238-fd67e584cb0b",
                 "encryption": "none",
-                "flow": ""
+                "level": 0
               }
             ]
           }
@@ -354,20 +298,16 @@
           "fingerprint": "edge",
           "publicKey": "ivgTfLR13A6xBsicIA28OPoav2tXlsstTTmGuETfnSk",
           "shortId": "5c766813929a1fdd",
-          "show": false
+          "spiderX": ""
         },
         "grpcSettings": {
           "serviceName": "",
           "multiMode": false
         }
-      },
-      "mux": {
-        "enabled": false,
-        "concurrency": -1
       }
     },
     {
-      "tag": "proxy-8",
+      "tag": "px-09",
       "protocol": "vless",
       "settings": {
         "vnext": [
@@ -378,7 +318,7 @@
               {
                 "id": "e26c67f0-6775-4e91-8238-fd67e584cb0b",
                 "encryption": "none",
-                "flow": ""
+                "level": 0
               }
             ]
           }
@@ -392,20 +332,16 @@
           "fingerprint": "edge",
           "publicKey": "Oxa7_rWhui5jFI7p8Fyg0G_Msev5-T6aalS4q2qMViI",
           "shortId": "3415",
-          "show": false
+          "spiderX": ""
         },
         "grpcSettings": {
           "serviceName": "",
           "multiMode": false
         }
-      },
-      "mux": {
-        "enabled": false,
-        "concurrency": -1
       }
     },
     {
-      "tag": "proxy-9",
+      "tag": "px-10",
       "protocol": "vless",
       "settings": {
         "vnext": [
@@ -416,6 +352,7 @@
               {
                 "id": "e26c67f0-6775-4e91-8238-fd67e584cb0b",
                 "encryption": "none",
+                "level": 0,
                 "flow": "xtls-rprx-vision"
               }
             ]
@@ -430,21 +367,12 @@
           "fingerprint": "randomized",
           "publicKey": "ivgTfLR13A6xBsicIA28OPoav2tXlsstTTmGuETfnSk",
           "shortId": "6d6f13013d3e1d0c",
-          "show": false
-        },
-        "tcpSettings": {
-          "header": {
-            "type": "none"
-          }
+          "spiderX": ""
         }
-      },
-      "mux": {
-        "enabled": false,
-        "concurrency": -1
       }
     },
     {
-      "tag": "proxy-10",
+      "tag": "px-11",
       "protocol": "vless",
       "settings": {
         "vnext": [
@@ -455,6 +383,7 @@
               {
                 "id": "a6bd2cf2-cb83-4ac3-82a3-350cc9d0d469",
                 "encryption": "none",
+                "level": 0,
                 "flow": "xtls-rprx-vision"
               }
             ]
@@ -469,21 +398,12 @@
           "fingerprint": "chrome",
           "publicKey": "LGcG8Sqv5vPDypbaEgHV0ZGqQOBkgDepPWXyDohbVXQ",
           "shortId": "",
-          "show": false
-        },
-        "tcpSettings": {
-          "header": {
-            "type": "none"
-          }
+          "spiderX": ""
         }
-      },
-      "mux": {
-        "enabled": false,
-        "concurrency": -1
       }
     },
     {
-      "tag": "proxy-11",
+      "tag": "px-12",
       "protocol": "vless",
       "settings": {
         "vnext": [
@@ -494,7 +414,7 @@
               {
                 "id": "1da3b96e-55af-0012-9147-39e79074aaea",
                 "encryption": "none",
-                "flow": ""
+                "level": 0
               }
             ]
           }
@@ -508,20 +428,253 @@
           "fingerprint": "firefox",
           "publicKey": "36F7ul7R68ih8TAKPfHnqEvw_23kWNgOXCrfQKK3MXQ",
           "shortId": "3722621913893e97",
-          "show": false
+          "spiderX": ""
         },
         "grpcSettings": {
           "serviceName": "/api",
           "multiMode": false
         }
-      },
-      "mux": {
-        "enabled": false,
-        "concurrency": -1
       }
     },
     {
-      "tag": "proxy-12",
+      "tag": "px-13",
+      "protocol": "vless",
+      "settings": {
+        "vnext": [
+          {
+            "address": "62.152.56.226",
+            "port": 8443,
+            "users": [
+              {
+                "id": "1da3b96e-55af-0012-9147-39e79074aaea",
+                "encryption": "none",
+                "level": 0
+              }
+            ]
+          }
+        ]
+      },
+      "streamSettings": {
+        "network": "grpc",
+        "security": "reality",
+        "realitySettings": {
+          "serverName": "loadtest.dev.urent.ru",
+          "fingerprint": "chrome",
+          "publicKey": "36F7ul7R68ih8TAKPfHnqEvw_23kWNgOXCrfQKK3MXQ",
+          "shortId": "3722621913893e97",
+          "spiderX": ""
+        },
+        "grpcSettings": {
+          "serviceName": "/api",
+          "multiMode": false
+        }
+      }
+    },
+    {
+      "tag": "px-14",
+      "protocol": "vmess",
+      "settings": {
+        "vnext": [
+          {
+            "address": "renderer-stream-1-411.mirra.now",
+            "port": 443,
+            "users": [
+              {
+                "id": "df9c9355-b02c-4c12-909d-0dbeb725d52b",
+                "alterId": 0,
+                "security": "auto",
+                "level": 0
+              }
+            ]
+          }
+        ]
+      },
+      "streamSettings": {
+        "network": "ws",
+        "security": "tls",
+        "tlsSettings": {
+          "serverName": "renderer-stream-1-411.mirra.now",
+          "allowInsecure": false
+        },
+        "wsSettings": {
+          "path": "/api/v1/gpu-stream/socket"
+        }
+      }
+    },
+    {
+      "tag": "px-15",
+      "protocol": "vmess",
+      "settings": {
+        "vnext": [
+          {
+            "address": "renderer-stream-1-411.mirra.now",
+            "port": 443,
+            "users": [
+              {
+                "id": "df9c9355-b02c-4c12-909d-0dbeb725d52b",
+                "alterId": 0,
+                "security": "auto",
+                "level": 0
+              }
+            ]
+          }
+        ]
+      },
+      "streamSettings": {
+        "network": "ws",
+        "security": "tls",
+        "tlsSettings": {
+          "serverName": "renderer-stream-1-411.mirra.now",
+          "allowInsecure": false,
+          "fingerprint": "chrome",
+          "alpn": [
+            "h2",
+            "http/1.1"
+          ]
+        },
+        "wsSettings": {
+          "path": "/api/v1/gpu-stream/socket",
+          "headers": {
+            "Host": "renderer-stream-1-411.mirra.now"
+          }
+        }
+      }
+    },
+    {
+      "tag": "px-16",
+      "protocol": "vmess",
+      "settings": {
+        "vnext": [
+          {
+            "address": "37.220.161.249",
+            "port": 443,
+            "users": [
+              {
+                "id": "df9c9355-b02c-4c12-909d-0dbeb725d52b",
+                "alterId": 0,
+                "security": "auto",
+                "level": 0
+              }
+            ]
+          }
+        ]
+      },
+      "streamSettings": {
+        "network": "ws",
+        "security": "tls",
+        "tlsSettings": {
+          "serverName": "renderer-stream-1-411.mirra.now",
+          "allowInsecure": false
+        },
+        "wsSettings": {
+          "path": "/api/v1/gpu-stream/socket",
+          "headers": {
+            "Host": "renderer-stream-1-411.mirra.now"
+          }
+        }
+      }
+    },
+    {
+      "tag": "px-17",
+      "protocol": "vmess",
+      "settings": {
+        "vnext": [
+          {
+            "address": "93.93.89.99",
+            "port": 443,
+            "users": [
+              {
+                "id": "df9c9355-b02c-4c12-909d-0dbeb725d52b",
+                "alterId": 0,
+                "security": "auto",
+                "level": 0
+              }
+            ]
+          }
+        ]
+      },
+      "streamSettings": {
+        "network": "ws",
+        "security": "tls",
+        "tlsSettings": {
+          "serverName": "renderer-stream-1-411.mirra.now",
+          "allowInsecure": false
+        },
+        "wsSettings": {
+          "path": "/api/v1/gpu-stream/socket",
+          "headers": {
+            "Host": "renderer-stream-1-411.mirra.now"
+          }
+        }
+      }
+    },
+    {
+      "tag": "px-18",
+      "protocol": "vmess",
+      "settings": {
+        "vnext": [
+          {
+            "address": "renderer-stream-1-411.mirra.now",
+            "port": 443,
+            "users": [
+              {
+                "id": "df9c9355-b02c-4c12-909d-0dbeb725d52b",
+                "alterId": 0,
+                "security": "auto",
+                "level": 0
+              }
+            ]
+          }
+        ]
+      },
+      "streamSettings": {
+        "network": "ws",
+        "security": "tls",
+        "tlsSettings": {
+          "serverName": "renderer-stream-1-411.mirra.now",
+          "allowInsecure": false
+        },
+        "wsSettings": {
+          "path": "/api/v1/gpu-stream/socket",
+          "headers": {
+            "Host": "renderer-stream-1-411.mirra.now"
+          }
+        }
+      }
+    },
+    {
+      "tag": "px-19",
+      "protocol": "vmess",
+      "settings": {
+        "vnext": [
+          {
+            "address": "37.220.161.247",
+            "port": 443,
+            "users": [
+              {
+                "id": "df9c9355-b02c-4c12-909d-0dbeb725d52b",
+                "alterId": 0,
+                "security": "auto",
+                "level": 0
+              }
+            ]
+          }
+        ]
+      },
+      "streamSettings": {
+        "network": "ws",
+        "security": "tls",
+        "tlsSettings": {
+          "serverName": "renderer-stream-1-411.mirra.now",
+          "allowInsecure": false
+        },
+        "wsSettings": {
+          "path": "/api/v1/gpu-stream/socket"
+        }
+      }
+    },
+    {
+      "tag": "px-20",
       "protocol": "vless",
       "settings": {
         "vnext": [
@@ -532,6 +685,7 @@
               {
                 "id": "99a5e0ca-99b7-4b83-88f7-7d0f0943ae09",
                 "encryption": "none",
+                "level": 0,
                 "flow": "xtls-rprx-vision"
               }
             ]
@@ -546,21 +700,12 @@
           "fingerprint": "firefox",
           "publicKey": "pPi-WO8qQFFZ9UJWNLW9YClbjcoAAZWJQ2_FM3Kjhz8",
           "shortId": "500aec9e9e5e2212",
-          "show": false
-        },
-        "tcpSettings": {
-          "header": {
-            "type": "none"
-          }
+          "spiderX": ""
         }
-      },
-      "mux": {
-        "enabled": false,
-        "concurrency": -1
       }
     },
     {
-      "tag": "proxy-13",
+      "tag": "px-21",
       "protocol": "vless",
       "settings": {
         "vnext": [
@@ -571,6 +716,7 @@
               {
                 "id": "99a5e0ca-99b7-4b83-88f7-7d0f0943ae09",
                 "encryption": "none",
+                "level": 0,
                 "flow": "xtls-rprx-vision"
               }
             ]
@@ -585,21 +731,12 @@
           "fingerprint": "firefox",
           "publicKey": "pPi-WO8qQFFZ9UJWNLW9YClbjcoAAZWJQ2_FM3Kjhz8",
           "shortId": "500aec9e9e5e2212",
-          "show": false
-        },
-        "tcpSettings": {
-          "header": {
-            "type": "none"
-          }
+          "spiderX": ""
         }
-      },
-      "mux": {
-        "enabled": false,
-        "concurrency": -1
       }
     },
     {
-      "tag": "proxy-14",
+      "tag": "px-22",
       "protocol": "vless",
       "settings": {
         "vnext": [
@@ -610,6 +747,7 @@
               {
                 "id": "f4779677-98b1-4bea-bc54-5ecfe4813732",
                 "encryption": "none",
+                "level": 0,
                 "flow": "xtls-rprx-vision"
               }
             ]
@@ -624,21 +762,12 @@
           "fingerprint": "chrome",
           "publicKey": "pPi-WO8qQFFZ9UJWNLW9YClbjcoAAZWJQ2_FM3Kjhz8",
           "shortId": "d3ee47fc2f553c44",
-          "show": false
-        },
-        "tcpSettings": {
-          "header": {
-            "type": "none"
-          }
+          "spiderX": ""
         }
-      },
-      "mux": {
-        "enabled": false,
-        "concurrency": -1
       }
     },
     {
-      "tag": "proxy-15",
+      "tag": "px-23",
       "protocol": "vless",
       "settings": {
         "vnext": [
@@ -649,6 +778,7 @@
               {
                 "id": "0ea101a3-9754-4d11-bb64-a8942b6234fe",
                 "encryption": "none",
+                "level": 0,
                 "flow": "xtls-rprx-vision"
               }
             ]
@@ -663,21 +793,12 @@
           "fingerprint": "firefox",
           "publicKey": "bqgqScDlzAPtaI-38GcTC527KGLAwuS2Ai2mUKpWF0c",
           "shortId": "f7086c23cb25e195",
-          "show": false
-        },
-        "tcpSettings": {
-          "header": {
-            "type": "none"
-          }
+          "spiderX": ""
         }
-      },
-      "mux": {
-        "enabled": false,
-        "concurrency": -1
       }
     },
     {
-      "tag": "proxy-16",
+      "tag": "px-24",
       "protocol": "vless",
       "settings": {
         "vnext": [
@@ -688,6 +809,7 @@
               {
                 "id": "2e5af30a-19dd-49ce-9740-3c0ac2ed8349",
                 "encryption": "none",
+                "level": 0,
                 "flow": "xtls-rprx-vision"
               }
             ]
@@ -702,21 +824,12 @@
           "fingerprint": "chrome",
           "publicKey": "1oUeBtHH4DskTM_jCh-6enWRkFMDX9l1OU5kWYl4kxA",
           "shortId": "f34818a561dfd1fe",
-          "show": false
-        },
-        "tcpSettings": {
-          "header": {
-            "type": "none"
-          }
+          "spiderX": ""
         }
-      },
-      "mux": {
-        "enabled": false,
-        "concurrency": -1
       }
     },
     {
-      "tag": "proxy-17",
+      "tag": "px-25",
       "protocol": "vless",
       "settings": {
         "vnext": [
@@ -727,6 +840,7 @@
               {
                 "id": "a6349c3f-5234-4821-80b4-d99b33f0924d",
                 "encryption": "none",
+                "level": 0,
                 "flow": "xtls-rprx-vision"
               }
             ]
@@ -741,21 +855,12 @@
           "fingerprint": "firefox",
           "publicKey": "1oUeBtHH4DskTM_jCh-6enWRkFMDX9l1OU5kWYl4kxA",
           "shortId": "f34818a561dfd1fe",
-          "show": false
-        },
-        "tcpSettings": {
-          "header": {
-            "type": "none"
-          }
+          "spiderX": ""
         }
-      },
-      "mux": {
-        "enabled": false,
-        "concurrency": -1
       }
     },
     {
-      "tag": "proxy-18",
+      "tag": "px-26",
       "protocol": "vless",
       "settings": {
         "vnext": [
@@ -766,6 +871,7 @@
               {
                 "id": "4d87a8f8-c423-4689-8312-23396e1f8526",
                 "encryption": "none",
+                "level": 0,
                 "flow": "xtls-rprx-vision"
               }
             ]
@@ -780,21 +886,12 @@
           "fingerprint": "firefox",
           "publicKey": "QEjZ9FL40tbfbL2bshmD5hilMnAPv80yEY1uS6O9dy8",
           "shortId": "b2b07bdd",
-          "show": false
-        },
-        "tcpSettings": {
-          "header": {
-            "type": "none"
-          }
+          "spiderX": ""
         }
-      },
-      "mux": {
-        "enabled": false,
-        "concurrency": -1
       }
     },
     {
-      "tag": "proxy-19",
+      "tag": "px-27",
       "protocol": "vless",
       "settings": {
         "vnext": [
@@ -805,6 +902,7 @@
               {
                 "id": "512f01f4-d8fc-4a78-96a0-5d9ebebe35b9",
                 "encryption": "none",
+                "level": 0,
                 "flow": "xtls-rprx-vision"
               }
             ]
@@ -819,21 +917,12 @@
           "fingerprint": "firefox",
           "publicKey": "ISa-DZOI4LRRb9DHMFYm5oFqBXDjYzz0hVWUfWvzLmo",
           "shortId": "dc8109baf0f607ea",
-          "show": false
-        },
-        "tcpSettings": {
-          "header": {
-            "type": "none"
-          }
+          "spiderX": ""
         }
-      },
-      "mux": {
-        "enabled": false,
-        "concurrency": -1
       }
     },
     {
-      "tag": "proxy-20",
+      "tag": "px-28",
       "protocol": "vless",
       "settings": {
         "vnext": [
@@ -844,6 +933,7 @@
               {
                 "id": "ab80400e-613e-4763-814d-eae007fdcde2",
                 "encryption": "none",
+                "level": 0,
                 "flow": "xtls-rprx-vision"
               }
             ]
@@ -858,21 +948,12 @@
           "fingerprint": "chrome",
           "publicKey": "7zd9mJilgjOrg_ohtw23Vmio-pdnYqeP_r-kiWt87Cg",
           "shortId": "2715592069f36fe7",
-          "show": false
-        },
-        "tcpSettings": {
-          "header": {
-            "type": "none"
-          }
+          "spiderX": ""
         }
-      },
-      "mux": {
-        "enabled": false,
-        "concurrency": -1
       }
     },
     {
-      "tag": "proxy-21",
+      "tag": "px-29",
       "protocol": "vless",
       "settings": {
         "vnext": [
@@ -883,6 +964,7 @@
               {
                 "id": "129400e5-7d1b-4720-bf3e-f877c3e5021e",
                 "encryption": "none",
+                "level": 0,
                 "flow": "xtls-rprx-vision"
               }
             ]
@@ -897,21 +979,12 @@
           "fingerprint": "firefox",
           "publicKey": "wa00o0wO4pEn9ki565dMNkzt0SBcuJ4aRyz6tpTYmQw",
           "shortId": "9d35004ad989e412",
-          "show": false
-        },
-        "tcpSettings": {
-          "header": {
-            "type": "none"
-          }
+          "spiderX": ""
         }
-      },
-      "mux": {
-        "enabled": false,
-        "concurrency": -1
       }
     },
     {
-      "tag": "proxy-22",
+      "tag": "px-30",
       "protocol": "vless",
       "settings": {
         "vnext": [
@@ -922,7 +995,7 @@
               {
                 "id": "b9a17584-72e7-4383-9cf4-4705982418c6",
                 "encryption": "none",
-                "flow": ""
+                "level": 0
               }
             ]
           }
@@ -936,17 +1009,12 @@
           "fingerprint": "safari",
           "publicKey": "4hGi646sQRMj-FcZCaQ8EcVEbkZxc83IrWx4fxFPsnk",
           "shortId": "fd5c85abc0abfa78",
-          "show": false
-        },
-        "xhttpSettings": {}
-      },
-      "mux": {
-        "enabled": false,
-        "concurrency": -1
+          "spiderX": ""
+        }
       }
     },
     {
-      "tag": "proxy-23",
+      "tag": "px-31",
       "protocol": "vless",
       "settings": {
         "vnext": [
@@ -957,6 +1025,7 @@
               {
                 "id": "3ea2d8f2-12c1-4189-8cc5-91d0ee9f5ca0",
                 "encryption": "none",
+                "level": 0,
                 "flow": "xtls-rprx-vision"
               }
             ]
@@ -971,21 +1040,12 @@
           "fingerprint": "firefox",
           "publicKey": "C1hW1bTA9WOacIK-fHHg-HLkDZ3FY7FhEhAyldMSUEA",
           "shortId": "a1b2c3d4e5f6",
-          "show": false
-        },
-        "tcpSettings": {
-          "header": {
-            "type": "none"
-          }
+          "spiderX": ""
         }
-      },
-      "mux": {
-        "enabled": false,
-        "concurrency": -1
       }
     },
     {
-      "tag": "proxy-24",
+      "tag": "px-32",
       "protocol": "vless",
       "settings": {
         "vnext": [
@@ -996,6 +1056,7 @@
               {
                 "id": "ac3b5bf2-8ffb-4276-86e4-10d6196187e3",
                 "encryption": "none",
+                "level": 0,
                 "flow": "xtls-rprx-vision"
               }
             ]
@@ -1010,21 +1071,12 @@
           "fingerprint": "firefox",
           "publicKey": "kt-wshmPVd-J1dlU-tsXUoGag2-oFwYQ5UafScaAfzQ",
           "shortId": "",
-          "show": false
-        },
-        "tcpSettings": {
-          "header": {
-            "type": "none"
-          }
+          "spiderX": ""
         }
-      },
-      "mux": {
-        "enabled": false,
-        "concurrency": -1
       }
     },
     {
-      "tag": "proxy-25",
+      "tag": "px-33",
       "protocol": "vless",
       "settings": {
         "vnext": [
@@ -1035,6 +1087,7 @@
               {
                 "id": "d1754ab7-0c54-4f2a-a3d6-584b38e61061",
                 "encryption": "none",
+                "level": 0,
                 "flow": "xtls-rprx-vision"
               }
             ]
@@ -1049,21 +1102,12 @@
           "fingerprint": "firefox",
           "publicKey": "kt-wshmPVd-J1dlU-tsXUoGag2-oFwYQ5UafScaAfzQ",
           "shortId": "",
-          "show": false
-        },
-        "tcpSettings": {
-          "header": {
-            "type": "none"
-          }
+          "spiderX": ""
         }
-      },
-      "mux": {
-        "enabled": false,
-        "concurrency": -1
       }
     },
     {
-      "tag": "proxy-26",
+      "tag": "px-34",
       "protocol": "vless",
       "settings": {
         "vnext": [
@@ -1074,6 +1118,7 @@
               {
                 "id": "0a12381a-e241-4b63-a03c-1a5a45a95977",
                 "encryption": "none",
+                "level": 0,
                 "flow": "xtls-rprx-vision"
               }
             ]
@@ -1088,21 +1133,12 @@
           "fingerprint": "firefox",
           "publicKey": "r1Kfa7J4LtBrAluydukevUSBeOo-1DvZJdvZGrWkOQg",
           "shortId": "6dba2e08344e6bf5",
-          "show": false
-        },
-        "tcpSettings": {
-          "header": {
-            "type": "none"
-          }
+          "spiderX": ""
         }
-      },
-      "mux": {
-        "enabled": false,
-        "concurrency": -1
       }
     },
     {
-      "tag": "proxy-27",
+      "tag": "px-35",
       "protocol": "vless",
       "settings": {
         "vnext": [
@@ -1113,6 +1149,7 @@
               {
                 "id": "dc22c1b5-ea27-4d89-89ae-c0580ed94ca5",
                 "encryption": "none",
+                "level": 0,
                 "flow": "xtls-rprx-vision"
               }
             ]
@@ -1127,21 +1164,12 @@
           "fingerprint": "firefox",
           "publicKey": "vLxGB-lOlxcxTs9Wzuq4WLqdrpuLIIRMY582qC730Gk",
           "shortId": "9f76cfc6302bfcbe",
-          "show": false
-        },
-        "tcpSettings": {
-          "header": {
-            "type": "none"
-          }
+          "spiderX": ""
         }
-      },
-      "mux": {
-        "enabled": false,
-        "concurrency": -1
       }
     },
     {
-      "tag": "proxy-28",
+      "tag": "px-36",
       "protocol": "vless",
       "settings": {
         "vnext": [
@@ -1152,7 +1180,7 @@
               {
                 "id": "ca428a2e-7f82-4030-851b-cab731a5645a",
                 "encryption": "none",
-                "flow": ""
+                "level": 0
               }
             ]
           }
@@ -1166,20 +1194,16 @@
           "fingerprint": "firefox",
           "publicKey": "F2MKDw5CCtP1oXIej2EgNxB01k3eyNu7tKCFfucgnRA",
           "shortId": "6ba85179e30d4fc3",
-          "show": false
+          "spiderX": ""
         },
         "grpcSettings": {
           "serviceName": "",
           "multiMode": false
         }
-      },
-      "mux": {
-        "enabled": false,
-        "concurrency": -1
       }
     },
     {
-      "tag": "proxy-29",
+      "tag": "px-37",
       "protocol": "vless",
       "settings": {
         "vnext": [
@@ -1190,7 +1214,7 @@
               {
                 "id": "d39664df-5bc0-4f49-9894-8f03b4150082",
                 "encryption": "none",
-                "flow": ""
+                "level": 0
               }
             ]
           }
@@ -1204,17 +1228,12 @@
           "fingerprint": "chrome",
           "publicKey": "QLamtir13xwzyWVlPRN3C7lw_fhSBU7X4H3A8zAl5Fg",
           "shortId": "6f3192",
-          "show": false
-        },
-        "xhttpSettings": {}
-      },
-      "mux": {
-        "enabled": false,
-        "concurrency": -1
+          "spiderX": ""
+        }
       }
     },
     {
-      "tag": "proxy-30",
+      "tag": "px-38",
       "protocol": "vless",
       "settings": {
         "vnext": [
@@ -1225,7 +1244,7 @@
               {
                 "id": "f1a44ae4-20f9-4dd7-b60e-b4f2acecfdb4",
                 "encryption": "none",
-                "flow": ""
+                "level": 0
               }
             ]
           }
@@ -1239,20 +1258,16 @@
           "fingerprint": "firefox",
           "publicKey": "F2MKDw5CCtP1oXIej2EgNxB01k3eyNu7tKCFfucgnRA",
           "shortId": "",
-          "show": false
+          "spiderX": ""
         },
         "grpcSettings": {
           "serviceName": "",
           "multiMode": false
         }
-      },
-      "mux": {
-        "enabled": false,
-        "concurrency": -1
       }
     },
     {
-      "tag": "proxy-31",
+      "tag": "px-39",
       "protocol": "vless",
       "settings": {
         "vnext": [
@@ -1263,6 +1278,7 @@
               {
                 "id": "45222193-caef-4cfa-85a0-b01e891a56dc",
                 "encryption": "none",
+                "level": 0,
                 "flow": "xtls-rprx-vision"
               }
             ]
@@ -1277,21 +1293,12 @@
           "fingerprint": "chrome",
           "publicKey": "IdqrygjwHBEMCOamBl7a504TVk6uMAtTRj0xLWcFcxY",
           "shortId": "e3d38cee79d4f94c",
-          "show": false
-        },
-        "tcpSettings": {
-          "header": {
-            "type": "none"
-          }
+          "spiderX": ""
         }
-      },
-      "mux": {
-        "enabled": false,
-        "concurrency": -1
       }
     },
     {
-      "tag": "proxy-32",
+      "tag": "px-40",
       "protocol": "vless",
       "settings": {
         "vnext": [
@@ -1302,6 +1309,7 @@
               {
                 "id": "bff7b258-8291-4298-bdee-991a92c1f33c",
                 "encryption": "none",
+                "level": 0,
                 "flow": "xtls-rprx-vision"
               }
             ]
@@ -1316,21 +1324,12 @@
           "fingerprint": "firefox",
           "publicKey": "IdqrygjwHBEMCOamBl7a504TVk6uMAtTRj0xLWcFcxY",
           "shortId": "cf9d145ad8f1ea55",
-          "show": false
-        },
-        "tcpSettings": {
-          "header": {
-            "type": "none"
-          }
+          "spiderX": ""
         }
-      },
-      "mux": {
-        "enabled": false,
-        "concurrency": -1
       }
     },
     {
-      "tag": "proxy-33",
+      "tag": "px-41",
       "protocol": "vless",
       "settings": {
         "vnext": [
@@ -1341,6 +1340,7 @@
               {
                 "id": "bff7b258-8291-4298-bdee-991a92c1f33c",
                 "encryption": "none",
+                "level": 0,
                 "flow": "xtls-rprx-vision"
               }
             ]
@@ -1355,21 +1355,12 @@
           "fingerprint": "firefox",
           "publicKey": "IdqrygjwHBEMCOamBl7a504TVk6uMAtTRj0xLWcFcxY",
           "shortId": "40ce08cf20c67003",
-          "show": false
-        },
-        "tcpSettings": {
-          "header": {
-            "type": "none"
-          }
+          "spiderX": ""
         }
-      },
-      "mux": {
-        "enabled": false,
-        "concurrency": -1
       }
     },
     {
-      "tag": "proxy-34",
+      "tag": "px-42",
       "protocol": "vless",
       "settings": {
         "vnext": [
@@ -1380,6 +1371,7 @@
               {
                 "id": "13bbbb75-2ec5-4262-9784-fe8b6e94510b",
                 "encryption": "none",
+                "level": 0,
                 "flow": "xtls-rprx-vision"
               }
             ]
@@ -1394,65 +1386,47 @@
           "fingerprint": "chrome",
           "publicKey": "ELp9PUvVnkoFJYiscWrbnPXRnsYdELSCbIz9wNmMRRw",
           "shortId": "965af8960474c29c",
-          "show": false
-        },
-        "tcpSettings": {
-          "header": {
-            "type": "none"
-          }
+          "spiderX": ""
         }
-      },
-      "mux": {
-        "enabled": false,
-        "concurrency": -1
       }
+    },
+    {
+      "tag": "direct",
+      "protocol": "freedom"
+    },
+    {
+      "tag": "block",
+      "protocol": "blackhole"
     }
   ],
   "routing": {
-    "domainStrategy": "IPIfNonMatch",
-    "balancers": [
-      {
-        "tag": "balancer",
-        "selector": [
-          "proxy-"
-        ],
-        "strategy": {
-          "type": "leastPing"
-        }
-      }
-    ],
+    "domainStrategy": "AsIs",
     "rules": [
       {
         "type": "field",
-        "outboundTag": "direct",
-        "domain": [
-          "geosite:private"
-        ]
-      },
+        "network": "tcp,udp",
+        "balancerTag": "auto-best"
+      }
+    ],
+    "balancers": [
       {
-        "type": "field",
-        "outboundTag": "direct",
-        "ip": [
-          "geoip:private"
-        ]
-      },
-      {
-        "type": "field",
-        "network": "udp,tcp",
-        "balancerTag": "balancer"
+        "tag": "auto-best",
+        "selector": [
+          "px-"
+        ],
+        "strategy": {
+          "type": "leastPing"
+        },
+        "fallbackTag": "px-01"
       }
     ]
   },
   "observatory": {
     "subjectSelector": [
-      "proxy-"
+      "px-"
     ],
-    "probeUrl": "http://cp.cloudflare.com",
+    "probeUrl": "https://www.gstatic.com/generate_204",
     "probeInterval": "20m",
     "enableConcurrency": true
-  },
-  "remarks": "Dwark | Авто подключение | VPN + Обход 🔥",
-  "meta": {
-    "serverDescription": "Auto Ping Select (20m)"
   }
 }
