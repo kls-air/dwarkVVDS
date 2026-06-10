@@ -1,3 +1,6 @@
+# profile-title: Dwark VPN Test Auto
+# profile-update-interval: 6
+
 {
   "log": {
     "loglevel": "warning"
