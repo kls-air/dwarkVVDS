@@ -1,7 +1,6 @@
 #profile-title: Dwark VPN
 #profile-update-interval: 1
 #subscription-userinfo: upload=0; download=0; total=0; expire=0
-#support-url: https://t.me/+jGuCIOI37gZjMGNi
 
 trojan://humanity@81.255.155.10:443?path=%2Fassignment&security=tls&allowinsecure=0&type=ws&sni=www.creationlong.org#🇸🇴Dwark VPN || Server 1
 trojan://humanity@81.255.155.10:443?path=%2Fassignment&security=tls&host=www.creationlong.org&allowinsecure=0&type=ws&sni=www.creationlong.org#🇸🇴Dwark VPN || Server 2
