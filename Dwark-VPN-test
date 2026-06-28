@@ -1,804 +1,876 @@
-[
-    {
-        "dns": {
-            "hosts": {
-                "cloudflare-dns.com": "1.1.1.1",
-                "dns.google": "8.8.8.8"
-            },
-            "queryStrategy": "UseIPv4",
-            "servers": [
-                "https://cloudflare-dns.com/dns-query",
-                {
-                    "address": "https://cloudflare-dns.com/dns-query",
-                    "domains": []
-                },
-                {
-                    "address": "https://dns.google/dns-query",
-                    "domains": []
-                }
-            ]
+{
+    "dns": {
+        "hosts": {
+            "cloudflare-dns.com": "1.1.1.1",
+            "dns.google": "8.8.8.8"
         },
-        "inbounds": [
+        "queryStrategy": "UseIPv4",
+        "servers": [
+            "https://cloudflare-dns.com/dns-query",
             {
-                "listen": "127.0.0.1",
-                "port": 10808,
-                "protocol": "socks",
-                "settings": {
-                    "auth": "noauth",
-                    "udp": true,
-                    "userLevel": 8
-                },
-                "sniffing": {
-                    "destOverride": [
-                        "http",
-                        "tls",
-                        "quic"
-                    ],
-                    "enabled": true
-                },
-                "tag": "socks"
+                "address": "https://cloudflare-dns.com/dns-query",
+                "domains": []
             },
             {
-                "listen": "127.0.0.1",
-                "port": 11111,
-                "protocol": "dokodemo-door",
-                "settings": {
-                    "address": "127.0.0.1"
-                },
-                "tag": "metrics_in"
+                "address": "https://dns.google/dns-query",
+                "domains": []
             }
-        ],
-        "log": {
-            "loglevel": "warning"
-        },
-        "metrics": {
-            "tag": "metrics_out"
-        },
-        "outbounds": [
-            {
-                "mux": {
-                    "concurrency": -1,
-                    "enabled": false,
-                    "xudpConcurrency": 8,
-                    "xudpProxyUDP443": ""
-                },
-                "protocol": "trojan",
-                "settings": {
-                    "servers": [
-                        {
-                            "address": "81.255.155.10",
-                            "level": 1,
-                            "method": "chacha20",
-                            "ota": false,
-                            "password": "humanity",
-                            "port": 443
-                        }
-                    ]
-                },
-                "streamSettings": {
-                    "network": "ws",
-                    "security": "tls",
-                    "tlsSettings": {
-                        "allowInsecure": false,
-                        "alpn": [],
-                        "fingerprint": "",
-                        "serverName": "",
-                        "show": false
-                    },
-                    "wsSettings": {
-                        "headers": {
-                            "Host": ""
-                        },
-                        "host": "",
-                        "path": "/assignment"
-                    }
-                },
-                "tag": "proxy"
-            },
-            {
-                "protocol": "freedom",
-                "settings": {
-                    "domainStrategy": "UseIP"
-                },
-                "tag": "direct"
-            },
-            {
-                "protocol": "blackhole",
-                "settings": {
-                    "response": {
-                        "type": "http"
-                    }
-                },
-                "tag": "block"
-            }
-        ],
-        "policy": {
-            "levels": {
-                "0": {
-                    "statsUserDownlink": true,
-                    "statsUserUplink": true
-                },
-                "8": {
-                    "connIdle": 300,
-                    "downlinkOnly": 1,
-                    "handshake": 4,
-                    "uplinkOnly": 1
-                }
-            },
-            "system": {
-                "statsInboundDownlink": true,
-                "statsInboundUplink": true,
-                "statsOutboundDownlink": true,
-                "statsOutboundUplink": true
-            }
-        },
-        "remarks": "🇸🇴 Dwark VPN || Server 1",
-        "routing": {
-            "domainStrategy": "IPIfNonMatch",
-            "rules": [
-                {
-                    "ip": [
-                        "1.1.1.1"
-                    ],
-                    "outboundTag": "proxy",
-                    "port": 443
-                },
-                {
-                    "ip": [
-                        "8.8.8.8"
-                    ],
-                    "outboundTag": "direct",
-                    "port": 443
-                },
-                {
-                    "inboundTag": [
-                        "metrics_in"
-                    ],
-                    "outboundTag": "metrics_out"
-                },
-                {
-                    "ip": [
-                        "10.0.0.0/8",
-                        "172.16.0.0/12",
-                        "192.168.0.0/16",
-                        "169.254.0.0/16",
-                        "224.0.0.0/4",
-                        "255.255.255.255"
-                    ],
-                    "outboundTag": "direct"
-                }
-            ]
-        },
-        "stats": {}
+        ]
     },
-    {
-        "dns": {
-            "hosts": {
-                "cloudflare-dns.com": "1.1.1.1",
-                "dns.google": "8.8.8.8"
+    "inbounds": [
+        {
+            "listen": "127.0.0.1",
+            "port": 10808,
+            "protocol": "socks",
+            "settings": {
+                "auth": "noauth",
+                "udp": true,
+                "userLevel": 8
             },
-            "queryStrategy": "UseIPv4",
-            "servers": [
-                "https://cloudflare-dns.com/dns-query",
-                {
-                    "address": "https://cloudflare-dns.com/dns-query",
-                    "domains": []
-                },
-                {
-                    "address": "https://dns.google/dns-query",
-                    "domains": []
-                }
-            ]
-        },
-        "inbounds": [
-            {
-                "listen": "127.0.0.1",
-                "port": 10808,
-                "protocol": "socks",
-                "settings": {
-                    "auth": "noauth",
-                    "udp": true,
-                    "userLevel": 8
-                },
-                "sniffing": {
-                    "destOverride": [
-                        "http",
-                        "tls",
-                        "quic"
-                    ],
-                    "enabled": true
-                },
-                "tag": "socks"
+            "sniffing": {
+                "destOverride": [
+                    "http",
+                    "tls",
+                    "quic"
+                ],
+                "enabled": true
             },
-            {
-                "listen": "127.0.0.1",
-                "port": 11111,
-                "protocol": "dokodemo-door",
-                "settings": {
-                    "address": "127.0.0.1"
-                },
-                "tag": "metrics_in"
-            }
-        ],
-        "log": {
-            "loglevel": "warning"
+            "tag": "socks"
         },
-        "metrics": {
-            "tag": "metrics_out"
-        },
-        "outbounds": [
-            {
-                "mux": {
-                    "concurrency": -1,
-                    "enabled": false,
-                    "xudpConcurrency": 8,
-                    "xudpProxyUDP443": ""
-                },
-                "protocol": "trojan",
-                "settings": {
-                    "servers": [
-                        {
-                            "address": "81.255.155.10",
-                            "level": 1,
-                            "method": "chacha20",
-                            "ota": false,
-                            "password": "humanity",
-                            "port": 443
-                        }
-                    ]
-                },
-                "streamSettings": {
-                    "network": "ws",
-                    "security": "tls",
-                    "tlsSettings": {
-                        "allowInsecure": false,
-                        "alpn": [],
-                        "fingerprint": "",
-                        "serverName": "www.creationlong.org",
-                        "show": false
-                    },
-                    "wsSettings": {
-                        "headers": {
-                            "Host": "www.creationlong.org"
-                        },
-                        "host": "www.creationlong.org",
-                        "path": "/assignment"
-                    }
-                },
-                "tag": "proxy"
+        {
+            "listen": "127.0.0.1",
+            "port": 11111,
+            "protocol": "dokodemo-door",
+            "settings": {
+                "address": "127.0.0.1"
             },
-            {
-                "protocol": "freedom",
-                "settings": {
-                    "domainStrategy": "UseIP"
-                },
-                "tag": "direct"
-            },
-            {
-                "protocol": "blackhole",
-                "settings": {
-                    "response": {
-                        "type": "http"
-                    }
-                },
-                "tag": "block"
-            }
-        ],
-        "policy": {
-            "levels": {
-                "0": {
-                    "statsUserDownlink": true,
-                    "statsUserUplink": true
-                },
-                "8": {
-                    "connIdle": 300,
-                    "downlinkOnly": 1,
-                    "handshake": 4,
-                    "uplinkOnly": 1
-                }
-            },
-            "system": {
-                "statsInboundDownlink": true,
-                "statsInboundUplink": true,
-                "statsOutboundDownlink": true,
-                "statsOutboundUplink": true
-            }
-        },
-        "remarks": "🇸🇴 Dwark VPN || Server 2",
-        "routing": {
-            "domainStrategy": "IPIfNonMatch",
-            "rules": [
-                {
-                    "ip": [
-                        "1.1.1.1"
-                    ],
-                    "outboundTag": "proxy",
-                    "port": 443
-                },
-                {
-                    "ip": [
-                        "8.8.8.8"
-                    ],
-                    "outboundTag": "direct",
-                    "port": 443
-                },
-                {
-                    "inboundTag": [
-                        "metrics_in"
-                    ],
-                    "outboundTag": "metrics_out"
-                },
-                {
-                    "ip": [
-                        "10.0.0.0/8",
-                        "172.16.0.0/12",
-                        "192.168.0.0/16",
-                        "169.254.0.0/16",
-                        "224.0.0.0/4",
-                        "255.255.255.255"
-                    ],
-                    "outboundTag": "direct"
-                }
-            ]
-        },
-        "stats": {}
+            "tag": "metrics_in"
+        }
+    ],
+    "log": {
+        "loglevel": "warning"
     },
-    {
-        "dns": {
-            "hosts": {
-                "cloudflare-dns.com": "1.1.1.1",
-                "dns.google": "8.8.8.8"
-            },
-            "queryStrategy": "UseIPv4",
-            "servers": [
-                "https://cloudflare-dns.com/dns-query",
-                {
-                    "address": "https://cloudflare-dns.com/dns-query",
-                    "domains": []
-                },
-                {
-                    "address": "https://dns.google/dns-query",
-                    "domains": []
-                }
-            ]
-        },
-        "inbounds": [
-            {
-                "listen": "127.0.0.1",
-                "port": 10808,
-                "protocol": "socks",
-                "settings": {
-                    "auth": "noauth",
-                    "udp": true,
-                    "userLevel": 8
-                },
-                "sniffing": {
-                    "destOverride": [
-                        "http",
-                        "tls",
-                        "quic"
-                    ],
-                    "enabled": true
-                },
-                "tag": "socks"
-            },
-            {
-                "listen": "127.0.0.1",
-                "port": 11111,
-                "protocol": "dokodemo-door",
-                "settings": {
-                    "address": "127.0.0.1"
-                },
-                "tag": "metrics_in"
-            }
-        ],
-        "log": {
-            "loglevel": "warning"
-        },
-        "metrics": {
-            "tag": "metrics_out"
-        },
-        "outbounds": [
-            {
-                "mux": {
-                    "concurrency": -1,
-                    "enabled": false,
-                    "xudpConcurrency": 8,
-                    "xudpProxyUDP443": ""
-                },
-                "protocol": "vless",
-                "settings": {
-                    "vnext": [
-                        {
-                            "address": "185.81.28.39",
-                            "port": 443,
-                            "users": [
-                                {
-                                    "encryption": "none",
-                                    "id": "eeb6823c-b926-4ea2-866a-5542edd26e59",
-                                    "level": 8,
-                                    "security": "auto"
-                                }
-                            ]
-                        }
-                    ]
-                },
-                "streamSettings": {
-                    "network": "ws",
-                    "security": "tls",
-                    "tlsSettings": {
-                        "allowInsecure": false,
-                        "alpn": [],
-                        "echConfigList": "cloudflare-ech.com+https://dns.alidns.com/dns-query",
-                        "fingerprint": "chrome",
-                        "serverName": "t1s1.rittbo.kdns.fr"
-                    },
-                    "wsSettings": {
-                        "headers": {
-                            "Host": "t1s1.rittbo.kdns.fr"
-                        },
-                        "path": "/"
-                    }
-                },
-                "tag": "proxy"
-            },
-            {
-                "protocol": "freedom",
-                "settings": {
-                    "domainStrategy": "UseIP"
-                },
-                "tag": "direct"
-            },
-            {
-                "protocol": "blackhole",
-                "settings": {
-                    "response": {
-                        "type": "http"
-                    }
-                },
-                "tag": "block"
-            }
-        ],
-        "policy": {
-            "levels": {
-                "0": {
-                    "statsUserDownlink": true,
-                    "statsUserUplink": true
-                },
-                "8": {
-                    "connIdle": 300,
-                    "downlinkOnly": 1,
-                    "handshake": 4,
-                    "uplinkOnly": 1
-                }
-            },
-            "system": {
-                "statsInboundDownlink": true,
-                "statsInboundUplink": true,
-                "statsOutboundDownlink": true,
-                "statsOutboundUplink": true
-            }
-        },
-        "remarks": "🇸🇴 Dwark VPN || Server 3",
-        "routing": {
-            "domainStrategy": "IPIfNonMatch",
-            "rules": [
-                {
-                    "ip": [
-                        "1.1.1.1"
-                    ],
-                    "outboundTag": "proxy",
-                    "port": 443
-                },
-                {
-                    "ip": [
-                        "8.8.8.8"
-                    ],
-                    "outboundTag": "direct",
-                    "port": 443
-                },
-                {
-                    "inboundTag": [
-                        "metrics_in"
-                    ],
-                    "outboundTag": "metrics_out"
-                },
-                {
-                    "ip": [
-                        "10.0.0.0/8",
-                        "172.16.0.0/12",
-                        "192.168.0.0/16",
-                        "169.254.0.0/16",
-                        "224.0.0.0/4",
-                        "255.255.255.255"
-                    ],
-                    "outboundTag": "direct"
-                }
-            ]
-        },
-        "stats": {}
+    "metrics": {
+        "tag": "metrics_out"
     },
-    {
-        "dns": {
-            "hosts": {
-                "cloudflare-dns.com": "1.1.1.1",
-                "dns.google": "8.8.8.8"
+    "observatory": {
+        "subjectSelector": [
+            "proxy-"
+        ],
+        "probeURL": "https://www.google.com/generate_204",
+        "probeInterval": "1h",
+        "enableConcurrency": true
+    },
+    "outbounds": [
+        {
+            "mux": {
+                "concurrency": -1,
+                "enabled": false,
+                "xudpConcurrency": 8,
+                "xudpProxyUDP443": ""
             },
-            "queryStrategy": "UseIPv4",
-            "servers": [
-                "https://cloudflare-dns.com/dns-query",
-                {
-                    "address": "https://cloudflare-dns.com/dns-query",
-                    "domains": []
+            "protocol": "vless",
+            "settings": {
+                "vnext": [
+                    {
+                        "address": "45.195.137.211",
+                        "port": 8443,
+                        "users": [
+                            {
+                                "encryption": "none",
+                                "flow": "xtls-rprx-vision",
+                                "id": "7f89560c-b9f0-4c56-b3e0-1b1bdafe0b08",
+                                "level": 8,
+                                "security": "auto"
+                            }
+                        ]
+                    }
+                ]
+            },
+            "streamSettings": {
+                "network": "tcp",
+                "realitySettings": {
+                    "allowInsecure": false,
+                    "fingerprint": "firefox",
+                    "publicKey": "IdqrygjwHBEMCOamBl7a504TVk6uMAtTRj0xLWcFcxY",
+                    "serverName": "storage.yandex.net",
+                    "shortId": "e3d38cee79d4f94c",
+                    "show": false,
+                    "spiderX": "/"
                 },
-                {
-                    "address": "https://dns.google/dns-query",
-                    "domains": []
+                "security": "reality",
+                "tcpSettings": {
+                    "header": {
+                        "type": "none"
+                    }
                 }
-            ]
-        },
-        "inbounds": [
-            {
-                "listen": "127.0.0.1",
-                "port": 10808,
-                "protocol": "socks",
-                "settings": {
-                    "auth": "noauth",
-                    "udp": true,
-                    "userLevel": 8
-                },
-                "sniffing": {
-                    "destOverride": [
-                        "http",
-                        "tls",
-                        "quic"
-                    ],
-                    "enabled": true
-                },
-                "tag": "socks"
             },
-            {
-                "listen": "127.0.0.1",
-                "port": 11111,
-                "protocol": "dokodemo-door",
-                "settings": {
-                    "address": "127.0.0.1"
+            "tag": "proxy-1"
+        },
+        {
+            "mux": {
+                "concurrency": -1,
+                "enabled": false,
+                "xudpConcurrency": 8,
+                "xudpProxyUDP443": ""
+            },
+            "protocol": "vless",
+            "settings": {
+                "vnext": [
+                    {
+                        "address": "45.195.137.124",
+                        "port": 8443,
+                        "users": [
+                            {
+                                "encryption": "none",
+                                "flow": "xtls-rprx-vision",
+                                "id": "7f89560c-b9f0-4c56-b3e0-1b1bdafe0b08",
+                                "level": 8,
+                                "security": "auto"
+                            }
+                        ]
+                    }
+                ]
+            },
+            "streamSettings": {
+                "network": "tcp",
+                "realitySettings": {
+                    "allowInsecure": false,
+                    "fingerprint": "firefox",
+                    "publicKey": "IdqrygjwHBEMCOamBl7a504TVk6uMAtTRj0xLWcFcxY",
+                    "serverName": "storage.yandex.net",
+                    "shortId": "e3d38cee79d4f94c",
+                    "show": false,
+                    "spiderX": "/"
                 },
-                "tag": "metrics_in"
+                "security": "reality",
+                "tcpSettings": {
+                    "header": {
+                        "type": "none"
+                    }
+                }
+            },
+            "tag": "proxy-2"
+        },
+        {
+            "mux": {
+                "concurrency": -1,
+                "enabled": false,
+                "xudpConcurrency": 8,
+                "xudpProxyUDP443": ""
+            },
+            "protocol": "vless",
+            "settings": {
+                "vnext": [
+                    {
+                        "address": "45.195.137.142",
+                        "port": 8443,
+                        "users": [
+                            {
+                                "encryption": "none",
+                                "flow": "xtls-rprx-vision",
+                                "id": "7f89560c-b9f0-4c56-b3e0-1b1bdafe0b08",
+                                "level": 8,
+                                "security": "auto"
+                            }
+                        ]
+                    }
+                ]
+            },
+            "streamSettings": {
+                "network": "tcp",
+                "realitySettings": {
+                    "allowInsecure": false,
+                    "fingerprint": "firefox",
+                    "publicKey": "IdqrygjwHBEMCOamBl7a504TVk6uMAtTRj0xLWcFcxY",
+                    "serverName": "storage.yandex.net",
+                    "shortId": "e3d38cee79d4f94c",
+                    "show": false,
+                    "spiderX": "/"
+                },
+                "security": "reality",
+                "tcpSettings": {
+                    "header": {
+                        "type": "none"
+                    }
+                }
+            },
+            "tag": "proxy-3"
+        },
+        {
+            "mux": {
+                "concurrency": -1,
+                "enabled": false,
+                "xudpConcurrency": 8,
+                "xudpProxyUDP443": ""
+            },
+            "protocol": "vless",
+            "settings": {
+                "vnext": [
+                    {
+                        "address": "45.195.137.222",
+                        "port": 8443,
+                        "users": [
+                            {
+                                "encryption": "none",
+                                "flow": "xtls-rprx-vision",
+                                "id": "7f89560c-b9f0-4c56-b3e0-1b1bdafe0b08",
+                                "level": 8,
+                                "security": "auto"
+                            }
+                        ]
+                    }
+                ]
+            },
+            "streamSettings": {
+                "network": "tcp",
+                "realitySettings": {
+                    "allowInsecure": false,
+                    "fingerprint": "firefox",
+                    "publicKey": "IdqrygjwHBEMCOamBl7a504TVk6uMAtTRj0xLWcFcxY",
+                    "serverName": "storage.yandex.net",
+                    "shortId": "e3d38cee79d4f94c",
+                    "show": false,
+                    "spiderX": "/"
+                },
+                "security": "reality",
+                "tcpSettings": {
+                    "header": {
+                        "type": "none"
+                    }
+                }
+            },
+            "tag": "proxy-4"
+        },
+        {
+            "mux": {
+                "concurrency": -1,
+                "enabled": false,
+                "xudpConcurrency": 8,
+                "xudpProxyUDP443": ""
+            },
+            "protocol": "vless",
+            "settings": {
+                "vnext": [
+                    {
+                        "address": "45.195.137.36",
+                        "port": 8443,
+                        "users": [
+                            {
+                                "encryption": "none",
+                                "flow": "xtls-rprx-vision",
+                                "id": "7f89560c-b9f0-4c56-b3e0-1b1bdafe0b08",
+                                "level": 8,
+                                "security": "auto"
+                            }
+                        ]
+                    }
+                ]
+            },
+            "streamSettings": {
+                "network": "tcp",
+                "realitySettings": {
+                    "allowInsecure": false,
+                    "fingerprint": "firefox",
+                    "publicKey": "IdqrygjwHBEMCOamBl7a504TVk6uMAtTRj0xLWcFcxY",
+                    "serverName": "storage.yandex.net",
+                    "shortId": "e3d38cee79d4f94c",
+                    "show": false,
+                    "spiderX": "/"
+                },
+                "security": "reality",
+                "tcpSettings": {
+                    "header": {
+                        "type": "none"
+                    }
+                }
+            },
+            "tag": "proxy-5"
+        },
+        {
+            "mux": {
+                "concurrency": -1,
+                "enabled": false,
+                "xudpConcurrency": 8,
+                "xudpProxyUDP443": ""
+            },
+            "protocol": "vless",
+            "settings": {
+                "vnext": [
+                    {
+                        "address": "45.195.137.27",
+                        "port": 8443,
+                        "users": [
+                            {
+                                "encryption": "none",
+                                "flow": "xtls-rprx-vision",
+                                "id": "7f89560c-b9f0-4c56-b3e0-1b1bdafe0b08",
+                                "level": 8,
+                                "security": "auto"
+                            }
+                        ]
+                    }
+                ]
+            },
+            "streamSettings": {
+                "network": "tcp",
+                "realitySettings": {
+                    "allowInsecure": false,
+                    "fingerprint": "firefox",
+                    "publicKey": "IdqrygjwHBEMCOamBl7a504TVk6uMAtTRj0xLWcFcxY",
+                    "serverName": "storage.yandex.net",
+                    "shortId": "e3d38cee79d4f94c",
+                    "show": false,
+                    "spiderX": "/"
+                },
+                "security": "reality",
+                "tcpSettings": {
+                    "header": {
+                        "type": "none"
+                    }
+                }
+            },
+            "tag": "proxy-6"
+        },
+        {
+            "mux": {
+                "concurrency": -1,
+                "enabled": false,
+                "xudpConcurrency": 8,
+                "xudpProxyUDP443": ""
+            },
+            "protocol": "vless",
+            "settings": {
+                "vnext": [
+                    {
+                        "address": "45.195.137.26",
+                        "port": 8443,
+                        "users": [
+                            {
+                                "encryption": "none",
+                                "flow": "xtls-rprx-vision",
+                                "id": "7f89560c-b9f0-4c56-b3e0-1b1bdafe0b08",
+                                "level": 8,
+                                "security": "auto"
+                            }
+                        ]
+                    }
+                ]
+            },
+            "streamSettings": {
+                "network": "tcp",
+                "realitySettings": {
+                    "allowInsecure": false,
+                    "fingerprint": "firefox",
+                    "publicKey": "IdqrygjwHBEMCOamBl7a504TVk6uMAtTRj0xLWcFcxY",
+                    "serverName": "storage.yandex.net",
+                    "shortId": "e3d38cee79d4f94c",
+                    "show": false,
+                    "spiderX": "/"
+                },
+                "security": "reality",
+                "tcpSettings": {
+                    "header": {
+                        "type": "none"
+                    }
+                }
+            },
+            "tag": "proxy-7"
+        },
+        {
+            "mux": {
+                "concurrency": -1,
+                "enabled": false,
+                "xudpConcurrency": 8,
+                "xudpProxyUDP443": ""
+            },
+            "protocol": "vless",
+            "settings": {
+                "vnext": [
+                    {
+                        "address": "45.195.137.36",
+                        "port": 8443,
+                        "users": [
+                            {
+                                "encryption": "none",
+                                "flow": "xtls-rprx-vision",
+                                "id": "7f89560c-b9f0-4c56-b3e0-1b1bdafe0b08",
+                                "level": 8,
+                                "security": "auto"
+                            }
+                        ]
+                    }
+                ]
+            },
+            "streamSettings": {
+                "network": "tcp",
+                "realitySettings": {
+                    "allowInsecure": false,
+                    "fingerprint": "chrome",
+                    "publicKey": "IdqrygjwHBEMCOamBl7a504TVk6uMAtTRj0xLWcFcxY",
+                    "serverName": "storage.yandex.net",
+                    "shortId": "e3d38cee79d4f94c",
+                    "show": false,
+                    "spiderX": "/"
+                },
+                "security": "reality",
+                "tcpSettings": {
+                    "header": {
+                        "type": "none"
+                    }
+                }
+            },
+            "tag": "proxy-8"
+        },
+        {
+            "mux": {
+                "concurrency": -1,
+                "enabled": false,
+                "xudpConcurrency": 8,
+                "xudpProxyUDP443": ""
+            },
+            "protocol": "vless",
+            "settings": {
+                "vnext": [
+                    {
+                        "address": "45.195.137.18",
+                        "port": 8443,
+                        "users": [
+                            {
+                                "encryption": "none",
+                                "flow": "xtls-rprx-vision",
+                                "id": "7f89560c-b9f0-4c56-b3e0-1b1bdafe0b08",
+                                "level": 8,
+                                "security": "auto"
+                            }
+                        ]
+                    }
+                ]
+            },
+            "streamSettings": {
+                "network": "tcp",
+                "realitySettings": {
+                    "allowInsecure": false,
+                    "fingerprint": "chrome",
+                    "publicKey": "IdqrygjwHBEMCOamBl7a504TVk6uMAtTRj0xLWcFcxY",
+                    "serverName": "storage.yandex.net",
+                    "shortId": "e3d38cee79d4f94c",
+                    "show": false,
+                    "spiderX": "/"
+                },
+                "security": "reality",
+                "tcpSettings": {
+                    "header": {
+                        "type": "none"
+                    }
+                }
+            },
+            "tag": "proxy-9"
+        },
+        {
+            "mux": {
+                "concurrency": -1,
+                "enabled": false,
+                "xudpConcurrency": 8,
+                "xudpProxyUDP443": ""
+            },
+            "protocol": "vless",
+            "settings": {
+                "vnext": [
+                    {
+                        "address": "45.195.137.248",
+                        "port": 8443,
+                        "users": [
+                            {
+                                "encryption": "none",
+                                "flow": "xtls-rprx-vision",
+                                "id": "7f89560c-b9f0-4c56-b3e0-1b1bdafe0b08",
+                                "level": 8,
+                                "security": "auto"
+                            }
+                        ]
+                    }
+                ]
+            },
+            "streamSettings": {
+                "network": "tcp",
+                "realitySettings": {
+                    "allowInsecure": false,
+                    "fingerprint": "firefox",
+                    "publicKey": "IdqrygjwHBEMCOamBl7a504TVk6uMAtTRj0xLWcFcxY",
+                    "serverName": "storage.yandex.net",
+                    "shortId": "e3d38cee79d4f94c",
+                    "show": false,
+                    "spiderX": "/"
+                },
+                "security": "reality",
+                "tcpSettings": {
+                    "header": {
+                        "type": "none"
+                    }
+                }
+            },
+            "tag": "proxy-10"
+        },
+        {
+            "mux": {
+                "concurrency": -1,
+                "enabled": false,
+                "xudpConcurrency": 8,
+                "xudpProxyUDP443": ""
+            },
+            "protocol": "vless",
+            "settings": {
+                "vnext": [
+                    {
+                        "address": "45.195.137.177",
+                        "port": 8443,
+                        "users": [
+                            {
+                                "encryption": "none",
+                                "flow": "xtls-rprx-vision",
+                                "id": "7f89560c-b9f0-4c56-b3e0-1b1bdafe0b08",
+                                "level": 8,
+                                "security": "auto"
+                            }
+                        ]
+                    }
+                ]
+            },
+            "streamSettings": {
+                "network": "tcp",
+                "realitySettings": {
+                    "allowInsecure": false,
+                    "fingerprint": "firefox",
+                    "publicKey": "IdqrygjwHBEMCOamBl7a504TVk6uMAtTRj0xLWcFcxY",
+                    "serverName": "storage.yandex.net",
+                    "shortId": "e3d38cee79d4f94c",
+                    "show": false,
+                    "spiderX": "/"
+                },
+                "security": "reality",
+                "tcpSettings": {
+                    "header": {
+                        "type": "none"
+                    }
+                }
+            },
+            "tag": "proxy-11"
+        },
+        {
+            "mux": {
+                "concurrency": -1,
+                "enabled": false,
+                "xudpConcurrency": 8,
+                "xudpProxyUDP443": ""
+            },
+            "protocol": "vless",
+            "settings": {
+                "vnext": [
+                    {
+                        "address": "45.195.137.73",
+                        "port": 8443,
+                        "users": [
+                            {
+                                "encryption": "none",
+                                "flow": "xtls-rprx-vision",
+                                "id": "7f89560c-b9f0-4c56-b3e0-1b1bdafe0b08",
+                                "level": 8,
+                                "security": "auto"
+                            }
+                        ]
+                    }
+                ]
+            },
+            "streamSettings": {
+                "network": "tcp",
+                "realitySettings": {
+                    "allowInsecure": false,
+                    "fingerprint": "firefox",
+                    "publicKey": "IdqrygjwHBEMCOamBl7a504TVk6uMAtTRj0xLWcFcxY",
+                    "serverName": "storage.yandex.net",
+                    "shortId": "e3d38cee79d4f94c",
+                    "show": false,
+                    "spiderX": "/"
+                },
+                "security": "reality",
+                "tcpSettings": {
+                    "header": {
+                        "type": "none"
+                    }
+                }
+            },
+            "tag": "proxy-12"
+        },
+        {
+            "mux": {
+                "concurrency": -1,
+                "enabled": false,
+                "xudpConcurrency": 8,
+                "xudpProxyUDP443": ""
+            },
+            "protocol": "vless",
+            "settings": {
+                "vnext": [
+                    {
+                        "address": "45.195.137.41",
+                        "port": 8443,
+                        "users": [
+                            {
+                                "encryption": "none",
+                                "flow": "xtls-rprx-vision",
+                                "id": "7f89560c-b9f0-4c56-b3e0-1b1bdafe0b08",
+                                "level": 8,
+                                "security": "auto"
+                            }
+                        ]
+                    }
+                ]
+            },
+            "streamSettings": {
+                "network": "tcp",
+                "realitySettings": {
+                    "allowInsecure": false,
+                    "fingerprint": "firefox",
+                    "publicKey": "IdqrygjwHBEMCOamBl7a504TVk6uMAtTRj0xLWcFcxY",
+                    "serverName": "storage.yandex.net",
+                    "shortId": "e3d38cee79d4f94c",
+                    "show": false,
+                    "spiderX": "/"
+                },
+                "security": "reality",
+                "tcpSettings": {
+                    "header": {
+                        "type": "none"
+                    }
+                }
+            },
+            "tag": "proxy-13"
+        },
+        {
+            "mux": {
+                "concurrency": -1,
+                "enabled": false,
+                "xudpConcurrency": 8,
+                "xudpProxyUDP443": ""
+            },
+            "protocol": "vless",
+            "settings": {
+                "vnext": [
+                    {
+                        "address": "45.195.137.118",
+                        "port": 8443,
+                        "users": [
+                            {
+                                "encryption": "none",
+                                "flow": "xtls-rprx-vision",
+                                "id": "7f89560c-b9f0-4c56-b3e0-1b1bdafe0b08",
+                                "level": 8,
+                                "security": "auto"
+                            }
+                        ]
+                    }
+                ]
+            },
+            "streamSettings": {
+                "network": "tcp",
+                "realitySettings": {
+                    "allowInsecure": false,
+                    "fingerprint": "firefox",
+                    "publicKey": "IdqrygjwHBEMCOamBl7a504TVk6uMAtTRj0xLWcFcxY",
+                    "serverName": "storage.yandex.net",
+                    "shortId": "e3d38cee79d4f94c",
+                    "show": false,
+                    "spiderX": "/"
+                },
+                "security": "reality",
+                "tcpSettings": {
+                    "header": {
+                        "type": "none"
+                    }
+                }
+            },
+            "tag": "proxy-14"
+        },
+        {
+            "mux": {
+                "concurrency": -1,
+                "enabled": false,
+                "xudpConcurrency": 8,
+                "xudpProxyUDP443": ""
+            },
+            "protocol": "vless",
+            "settings": {
+                "vnext": [
+                    {
+                        "address": "45.195.137.207",
+                        "port": 8443,
+                        "users": [
+                            {
+                                "encryption": "none",
+                                "flow": "xtls-rprx-vision",
+                                "id": "7f89560c-b9f0-4c56-b3e0-1b1bdafe0b08",
+                                "level": 8,
+                                "security": "auto"
+                            }
+                        ]
+                    }
+                ]
+            },
+            "streamSettings": {
+                "network": "tcp",
+                "realitySettings": {
+                    "allowInsecure": false,
+                    "fingerprint": "",
+                    "publicKey": "IdqrygjwHBEMCOamBl7a504TVk6uMAtTRj0xLWcFcxY",
+                    "serverName": "storage.yandex.net",
+                    "shortId": "e3d38cee79d4f94c",
+                    "show": false,
+                    "spiderX": "/"
+                },
+                "security": "reality",
+                "tcpSettings": {
+                    "header": {
+                        "type": "none"
+                    }
+                }
+            },
+            "tag": "proxy-15"
+        },
+        {
+            "mux": {
+                "concurrency": -1,
+                "enabled": false,
+                "xudpConcurrency": 8,
+                "xudpProxyUDP443": ""
+            },
+            "protocol": "vless",
+            "settings": {
+                "vnext": [
+                    {
+                        "address": "45.195.137.169",
+                        "port": 8443,
+                        "users": [
+                            {
+                                "encryption": "none",
+                                "flow": "xtls-rprx-vision",
+                                "id": "7f89560c-b9f0-4c56-b3e0-1b1bdafe0b08",
+                                "level": 8,
+                                "security": "auto"
+                            }
+                        ]
+                    }
+                ]
+            },
+            "streamSettings": {
+                "network": "tcp",
+                "realitySettings": {
+                    "allowInsecure": false,
+                    "fingerprint": "chrome",
+                    "publicKey": "IdqrygjwHBEMCOamBl7a504TVk6uMAtTRj0xLWcFcxY",
+                    "serverName": "storage.yandex.net",
+                    "shortId": "e3d38cee79d4f94c",
+                    "show": false,
+                    "spiderX": "/"
+                },
+                "security": "reality",
+                "tcpSettings": {
+                    "header": {
+                        "type": "none"
+                    }
+                }
+            },
+            "tag": "proxy-16"
+        },
+        {
+            "protocol": "freedom",
+            "settings": {
+                "domainStrategy": "UseIP"
+            },
+            "tag": "direct"
+        },
+        {
+            "protocol": "blackhole",
+            "settings": {
+                "response": {
+                    "type": "http"
+                }
+            },
+            "tag": "block"
+        }
+    ],
+    "policy": {
+        "levels": {
+            "0": {
+                "statsUserDownlink": true,
+                "statsUserUplink": true
+            },
+            "8": {
+                "connIdle": 300,
+                "downlinkOnly": 1,
+                "handshake": 4,
+                "uplinkOnly": 1
+            }
+        },
+        "system": {
+            "statsInboundDownlink": true,
+            "statsInboundUplink": true,
+            "statsOutboundDownlink": true,
+            "statsOutboundUplink": true
+        }
+    },
+    "remarks": "🇸🇴Dwark VPN || AUTO (16 серверов)",
+    "routing": {
+        "domainStrategy": "IPIfNonMatch",
+        "balancers": [
+            {
+                "tag": "auto_balancer",
+                "selector": [
+                    "proxy-"
+                ],
+                "strategy": {
+                    "type": "leastPing"
+                },
+                "fallbackTag": "proxy-1"
             }
         ],
-        "log": {
-            "loglevel": "warning"
-        },
-        "metrics": {
-            "tag": "metrics_out"
-        },
-        "outbounds": [
+        "rules": [
             {
-                "mux": {
-                    "concurrency": -1,
-                    "enabled": false,
-                    "xudpConcurrency": 8,
-                    "xudpProxyUDP443": ""
-                },
-                "protocol": "trojan",
-                "settings": {
-                    "servers": [
-                        {
-                            "address": "81.255.155.10",
-                            "level": 1,
-                            "method": "chacha20",
-                            "ota": false,
-                            "password": "humanity",
-                            "port": 443
-                        }
-                    ]
-                },
-                "streamSettings": {
-                    "network": "ws",
-                    "security": "tls",
-                    "tlsSettings": {
-                        "allowInsecure": false,
-                        "alpn": [],
-                        "fingerprint": "",
-                        "serverName": "",
-                        "show": false
-                    },
-                    "wsSettings": {
-                        "headers": {
-                            "Host": ""
-                        },
-                        "host": "",
-                        "path": "/assignment"
-                    }
-                },
-                "tag": "proxy1"
+                "ip": [
+                    "1.1.1.1"
+                ],
+                "balancerTag": "auto_balancer",
+                "port": 443
             },
             {
-                "mux": {
-                    "concurrency": -1,
-                    "enabled": false,
-                    "xudpConcurrency": 8,
-                    "xudpProxyUDP443": ""
-                },
-                "protocol": "trojan",
-                "settings": {
-                    "servers": [
-                        {
-                            "address": "81.255.155.10",
-                            "level": 1,
-                            "method": "chacha20",
-                            "ota": false,
-                            "password": "humanity",
-                            "port": 443
-                        }
-                    ]
-                },
-                "streamSettings": {
-                    "network": "ws",
-                    "security": "tls",
-                    "tlsSettings": {
-                        "allowInsecure": false,
-                        "alpn": [],
-                        "fingerprint": "",
-                        "serverName": "www.creationlong.org",
-                        "show": false
-                    },
-                    "wsSettings": {
-                        "headers": {
-                            "Host": "www.creationlong.org"
-                        },
-                        "host": "www.creationlong.org",
-                        "path": "/assignment"
-                    }
-                },
-                "tag": "proxy2"
+                "ip": [
+                    "8.8.8.8"
+                ],
+                "outboundTag": "direct",
+                "port": 443
             },
             {
-                "mux": {
-                    "concurrency": -1,
-                    "enabled": false,
-                    "xudpConcurrency": 8,
-                    "xudpProxyUDP443": ""
-                },
-                "protocol": "vless",
-                "settings": {
-                    "vnext": [
-                        {
-                            "address": "185.81.28.39",
-                            "port": 443,
-                            "users": [
-                                {
-                                    "encryption": "none",
-                                    "id": "eeb6823c-b926-4ea2-866a-5542edd26e59",
-                                    "level": 8,
-                                    "security": "auto"
-                                }
-                            ]
-                        }
-                    ]
-                },
-                "streamSettings": {
-                    "network": "ws",
-                    "security": "tls",
-                    "tlsSettings": {
-                        "allowInsecure": false,
-                        "alpn": [],
-                        "echConfigList": "cloudflare-ech.com+https://dns.alidns.com/dns-query",
-                        "fingerprint": "chrome",
-                        "serverName": "t1s1.rittbo.kdns.fr"
-                    },
-                    "wsSettings": {
-                        "headers": {
-                            "Host": "t1s1.rittbo.kdns.fr"
-                        },
-                        "path": "/"
-                    }
-                },
-                "tag": "proxy3"
+                "inboundTag": [
+                    "metrics_in"
+                ],
+                "outboundTag": "metrics_out"
             },
             {
-                "protocol": "freedom",
-                "settings": {
-                    "domainStrategy": "UseIP"
-                },
-                "tag": "direct"
+                "ip": [
+                    "10.0.0.0/8",
+                    "172.16.0.0/12",
+                    "192.168.0.0/16",
+                    "169.254.0.0/16",
+                    "224.0.0.0/4",
+                    "255.255.255.255"
+                ],
+                "outboundTag": "direct"
             },
             {
-                "protocol": "blackhole",
-                "settings": {
-                    "response": {
-                        "type": "http"
-                    }
-                },
-                "tag": "block"
+                "network": "tcp,udp",
+                "balancerTag": "auto_balancer"
             }
-        ],
-        "policy": {
-            "levels": {
-                "0": {
-                    "statsUserDownlink": true,
-                    "statsUserUplink": true
-                },
-                "8": {
-                    "connIdle": 300,
-                    "downlinkOnly": 1,
-                    "handshake": 4,
-                    "uplinkOnly": 1
-                }
-            },
-            "system": {
-                "statsInboundDownlink": true,
-                "statsInboundUplink": true,
-                "statsOutboundDownlink": true,
-                "statsOutboundUplink": true
-            }
-        },
-        "remarks": "🇲🇲 Dwark VPN || AUTO",
-        "routing": {
-            "domainStrategy": "IPIfNonMatch",
-            "balancers": [
-                {
-                    "tag": "auto-balancer",
-                    "selector": [
-                        "proxy1",
-                        "proxy2",
-                        "proxy3"
-                    ],
-                    "strategy": {
-                        "type": "leastPing"
-                    },
-                    "fallbackTag": "proxy1"
-                }
-            ],
-            "rules": [
-                {
-                    "ip": [
-                        "1.1.1.1"
-                    ],
-                    "balancerTag": "auto-balancer",
-                    "port": 443
-                },
-                {
-                    "ip": [
-                        "8.8.8.8"
-                    ],
-                    "outboundTag": "direct",
-                    "port": 443
-                },
-                {
-                    "inboundTag": [
-                        "metrics_in"
-                    ],
-                    "outboundTag": "metrics_out"
-                },
-                {
-                    "ip": [
-                        "10.0.0.0/8",
-                        "172.16.0.0/12",
-                        "192.168.0.0/16",
-                        "169.254.0.0/16",
-                        "224.0.0.0/4",
-                        "255.255.255.255"
-                    ],
-                    "outboundTag": "direct"
-                },
-                {
-                    "network": "tcp,udp",
-                    "balancerTag": "auto-balancer"
-                }
-            ]
-        },
-        "observatory": {
-            "subjectSelector": [
-                "proxy1",
-                "proxy2",
-                "proxy3"
-            ],
-            "probeURL": "https://www.google.com/generate_204",
-            "probeInterval": "3600s",
-            "enableConcurrency": true
-        },
-        "stats": {}
-    }
-]
+        ]
+    },
+    "stats": {}
+}
